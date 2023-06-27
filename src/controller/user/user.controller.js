@@ -4,7 +4,12 @@ import { BindUserData, ComparePassword, generateJWT, getResponse } from '../../G
 
 export async function createUser(req, res) {
   try {
-    const userData = BindUserData(req, res);
+    const userData = BindUserData(req);
+    if (userData.errors.length > 0)
+      return getResponse(res, {
+        statusCode: StatusCodes.BAD_REQUEST,
+        errors: userData.errors,
+      });
 
     const userExist = await GetUserByUserName(userData.userName);
     if (userExist)
@@ -26,7 +31,12 @@ export async function createUser(req, res) {
 
 export async function login(req, res) {
   try {
-    const userData = BindUserData(req, res);
+    const userData = BindUserData(req);
+    if (userData.errors.length > 0)
+      return getResponse(res, {
+        statusCode: StatusCodes.BAD_REQUEST,
+        errors: userData.errors,
+      });
 
     const userExist = await GetUserByUserName(userData.userName);
     if (!userExist)
@@ -53,4 +63,5 @@ export async function login(req, res) {
 
 export default {
   createUser,
+  login,
 };

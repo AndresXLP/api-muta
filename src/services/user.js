@@ -21,4 +21,5 @@ export async function GetUserByUserName(userName) {
 
 export default {
   CreateUser,
+  GetUserByUserName,
 };
