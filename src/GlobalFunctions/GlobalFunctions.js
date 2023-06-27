@@ -138,6 +138,47 @@ export function generateJWT(payload) {
   });
 }
 
+export function BindRouteData(body) {
+  const { material_list: materialList, limit_weight: limitWeight } = body;
+  const ret = {
+    materialList: [],
+    limitWeight: undefined,
+    errors: [],
+  }
+
+  if (!materialList || !materialList.length) {
+    ret.errors.push('Material list are required');
+  }
+
+  if (!limitWeight || !validateNumber(limitWeight)) {
+    ret.errors.push('Limit weight are required number');
+  }
+  ret.limitWeight = parseFloat(limitWeight)
+
+  if (materialList && materialList.length > 0) {
+    materialList.forEach((material, idx)=> {
+      const { name, weight, price } = material;
+      if (!name || !validateString(name)) {
+        ret.errors.push(`Material in pos[${idx}], name are required valid text`);
+      }
+
+      if (!weight || !validateNumber(weight)) {
+        ret.errors.push(`Material [${name.toUpperCase()}] weight are required decimal number`);
+      }
+      if (!price || !validateNumber(price)) {
+        ret.errors.push(`Material [${name.toUpperCase()}] price are required decimal number`);
+      }
+      if (name && weight && price)
+        ret.materialList.push({
+          name: name.toUpperCase(),
+          weight: parseFloat(weight),
+          price: parseFloat(price),
+        });
+    })
+  }
+  return ret;
+}
+
 export default {
   BindUserData,
   validateString,
@@ -147,4 +188,5 @@ export default {
   ComparePassword,
   validateNumber,
   BindCollectionData,
+  BindRouteData,
 };

@@ -10,6 +10,7 @@ import healthCheck from './Router/healthCheck.route';
 import userRoute from './Router/user.route';
 import materialRoute from './Router/materials.route';
 import collectionRoute from './Router/collections.route';
+import roadRoute from './Router/roads.route';
 import notFound from './Router/_404.route';
 
 const app = express();
@@ -24,6 +25,7 @@ app.use('/api', healthCheck);
 app.use('/api', userRoute);
 app.use('/api', materialRoute);
 app.use('/api', collectionRoute);
+app.use('/api', roadRoute)
 
 app.use(notFound);
 
