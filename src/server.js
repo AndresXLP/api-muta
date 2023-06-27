@@ -8,6 +8,7 @@ import './models/materials';
 import healthCheck from './router/healthCheck.route';
 import userRoute from './router/user.route';
 import materialRoute from './router/materials.route';
+import notFound from './router/_404.route';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -20,6 +21,9 @@ app.use(morgan(':method :url :status - :response-time ms'));
 app.use('/api', healthCheck);
 app.use('/api', userRoute);
 app.use('/api', materialRoute);
+
+app.use(notFound);
+
 (async () => {
   try {
     const database = await DB.connection;
