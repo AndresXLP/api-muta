@@ -1,6 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 import { CreateUser, GetUserByUserName } from '../../Services/user';
-import { BindUserData, ComparePassword, generateJWT, getResponse } from '../../GlobalFunctions/GlobalFunctions';
+import {
+  BindUserData,
+  ComparePassword,
+  generateJWT,
+  getResponse,
+  getResponseError,
+} from '../../GlobalFunctions/GlobalFunctions';
+
+const path = 'Controllers/User/UserController';
 
 export async function createUser(req, res) {
   try {
@@ -24,8 +32,7 @@ export async function createUser(req, res) {
       msg: `user created successfully with ID: ${newUser}`,
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/createUser()`);
   }
 }
 
@@ -56,8 +63,7 @@ export async function login(req, res) {
       token: generateJWT({ userId: userExist.id, userName: userExist.userName }),
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/login()`);
   }
 }
 

@@ -5,6 +5,7 @@ import {
   getLimitSkipSearch,
   getPaginationData,
   getResponse,
+  getResponseError,
   validateNumber,
 } from '../../GlobalFunctions/GlobalFunctions';
 import {
@@ -16,6 +17,7 @@ import {
   UpdateMaterial,
 } from '../../Services/materials';
 
+const path = 'Controllers/Materials/MaterialsController';
 export async function createMaterial(req, res) {
   try {
     const materialData = BindMaterialData(req.body, 0);
@@ -39,8 +41,7 @@ export async function createMaterial(req, res) {
       data: newMaterial,
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/createMaterial()`);
   }
 }
 
@@ -67,8 +68,7 @@ export async function getMaterial(req, res) {
       data: materialExist,
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/getMaterial()`);
   }
 }
 
@@ -81,8 +81,7 @@ export async function getAllMaterials(req, res) {
       data: getPaginationData(allMaterials, pagination.page, pagination.limit),
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/getAllMaterials()`);
   }
 }
 
@@ -118,8 +117,7 @@ export async function updateMaterial(req, res) {
       msg: 'Material updated successfully',
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/updateMaterial()`);
   }
 }
 
@@ -147,8 +145,7 @@ export async function deleteMaterial(req, res) {
       msg: 'Material deleted successfully',
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/deleteMaterial()`);
   }
 }
 

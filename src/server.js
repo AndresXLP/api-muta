@@ -3,7 +3,7 @@ import 'dotenv/config';
 import express from 'express';
 import morgan from 'morgan';
 import DB from './Database/postgres';
-import './Models/user';
+// import './Models/user';
 import './Models/materials';
 import './Models/collections';
 import healthCheck from './Router/healthCheck.route';
@@ -25,7 +25,7 @@ app.use('/api', healthCheck);
 app.use('/api', userRoute);
 app.use('/api', materialRoute);
 app.use('/api', collectionRoute);
-app.use('/api', roadRoute)
+app.use('/api', roadRoute);
 
 app.use(notFound);
 

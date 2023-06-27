@@ -6,7 +6,7 @@ import {
   getAllMaterials,
   getMaterial,
   updateMaterial,
-} from '../Controllers/materials/materials.controller';
+} from '../Controllers/Materials/MaterialsController';
 
 const router = express.Router();
 

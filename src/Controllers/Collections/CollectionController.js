@@ -5,6 +5,7 @@ import {
   getLimitSkipSearch,
   getPaginationData,
   getResponse,
+  getResponseError,
   validateNumber,
 } from '../../GlobalFunctions/GlobalFunctions';
 import { GetMaterialByID } from '../../Services/materials';
@@ -16,6 +17,7 @@ import {
   UpdateCollection,
 } from '../../Services/collections';
 
+const path = 'src/Controllers/Collections/CollectionController';
 export async function createCollection(req, res) {
   try {
     const newCollectionData = BindCollectionData(req.body, 0);
@@ -40,8 +42,7 @@ export async function createCollection(req, res) {
       data: newCollection,
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/createCollection()`);
   }
 }
 
@@ -68,8 +69,7 @@ export async function getCollection(req, res) {
       data: collectionExist,
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/getCollection()`);
   }
 }
 
@@ -83,8 +83,7 @@ export async function getAllCollections(req, res) {
       data: getPaginationData(allCollections, pagination.page, pagination.limit),
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/getAllCollections()`);
   }
 }
 
@@ -120,8 +119,7 @@ export async function updateCollection(req, res) {
       msg: 'Collection updated successfully',
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/updateCollection()`);
   }
 }
 
@@ -149,8 +147,7 @@ export async function deleteCollection(req, res) {
       msg: 'Collection deleted successfully',
     });
   } catch (e) {
-    console.log(e);
-    return null;
+    return getResponseError(res, e, `${path}/deleteCollection()`);
   }
 }
 export default {

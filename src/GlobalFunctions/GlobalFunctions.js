@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dayjs from 'dayjs';
+import { StatusCodes } from 'http-status-codes';
 
 const flag = ['Create', 'Update'];
 
@@ -13,6 +14,16 @@ export function getResponse(res, dataResponse) {
     msg,
     errors,
     err,
+  });
+}
+
+export function getResponseError(res, err, path) {
+  console.error(`${dayjs().toISOString()} - ${path}`);
+  console.error(`${err}`);
+
+  return getResponse(res, {
+    statusCode: StatusCodes.INTERNAL_SERVER_ERROR,
+    err: err.toString(),
   });
 }
 
@@ -144,7 +155,7 @@ export function BindRouteData(body) {
     materialList: [],
     limitWeight: undefined,
     errors: [],
-  }
+  };
 
   if (!materialList || !materialList.length) {
     ret.errors.push('Material list are required');
@@ -153,10 +164,10 @@ export function BindRouteData(body) {
   if (!limitWeight || !validateNumber(limitWeight)) {
     ret.errors.push('Limit weight are required number');
   }
-  ret.limitWeight = parseFloat(limitWeight)
+  ret.limitWeight = parseFloat(limitWeight);
 
   if (materialList && materialList.length > 0) {
-    materialList.forEach((material, idx)=> {
+    materialList.forEach((material, idx) => {
       const { name, weight, price } = material;
       if (!name || !validateString(name)) {
         ret.errors.push(`Material in pos[${idx}], name are required valid text`);
@@ -174,7 +185,7 @@ export function BindRouteData(body) {
           weight: parseFloat(weight),
           price: parseFloat(price),
         });
-    })
+    });
   }
   return ret;
 }

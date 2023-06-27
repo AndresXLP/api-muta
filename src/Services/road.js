@@ -1,18 +1,17 @@
 export function getOptimumRoad({ materialList, limitWeight }) {
-  const materialsAccepted = [
-    'PLÁSTICO', 'CARTÓN', 'VIDRIO', 'METALES'
-  ]
-
+  const materialsAccepted = ['PLÁSTICO', 'CARTÓN', 'VIDRIO', 'METALES'];
 
   return materialList
-    .filter(material => materialsAccepted.includes(material.name) && material.weight <= limitWeight)
+    .filter((material) => materialsAccepted.includes(material.name) && material.weight <= limitWeight)
     .sort((a, b) => b.weight - a.weight)
-    .map(material => {
-      material.price = material.price * material.weight
-      return material
-    })
+    .map((material) => {
+      const mat = material;
+      mat.price *= mat.weight;
+
+      return mat;
+    });
 }
 
 export default {
-  getOptimumRoad
-}
+  getOptimumRoad,
+};
