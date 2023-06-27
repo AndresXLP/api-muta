@@ -1,10 +1,10 @@
 import { DataTypes } from 'sequelize';
 import bcrypt from 'bcrypt';
-import DB from '../database/postgres';
+import DB from '../Database/postgres';
 
 const sequelize = DB.connection;
 
-export const User = sequelize.define('User', {
+export const User = sequelize.define('user', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,

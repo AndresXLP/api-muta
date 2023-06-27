@@ -2,13 +2,15 @@ import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 import morgan from 'morgan';
-import DB from './database/postgres';
-import './models/user';
-import './models/materials';
-import healthCheck from './router/healthCheck.route';
-import userRoute from './router/user.route';
-import materialRoute from './router/materials.route';
-import notFound from './router/_404.route';
+import DB from './Database/postgres';
+import './Models/user';
+import './Models/materials';
+import './Models/collections';
+import healthCheck from './Router/healthCheck.route';
+import userRoute from './Router/user.route';
+import materialRoute from './Router/materials.route';
+import collectionRoute from './Router/collections.route';
+import notFound from './Router/_404.route';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -21,6 +23,7 @@ app.use(morgan(':method :url :status - :response-time ms'));
 app.use('/api', healthCheck);
 app.use('/api', userRoute);
 app.use('/api', materialRoute);
+app.use('/api', collectionRoute);
 
 app.use(notFound);
 

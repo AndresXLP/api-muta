@@ -1,7 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import {
   BindMaterialData,
-  BindUpdateMaterialData,
   getIDFromParams,
   getLimitSkipSearch,
   getPaginationData,
@@ -15,11 +14,11 @@ import {
   GetMaterialByID,
   GetMaterialByName,
   UpdateMaterial,
-} from '../../services/materials';
+} from '../../Services/materials';
 
 export async function createMaterial(req, res) {
   try {
-    const materialData = BindMaterialData(req);
+    const materialData = BindMaterialData(req.body, 0);
     if (materialData.errors.length > 0)
       return getResponse(res, {
         statusCode: StatusCodes.BAD_REQUEST,
@@ -47,7 +46,7 @@ export async function createMaterial(req, res) {
 
 export async function getMaterial(req, res) {
   try {
-    const id = getIDFromParams(req);
+    const id = getIDFromParams(req.params);
     if (!validateNumber(id) || !id) {
       return getResponse(res, {
         statusCode: StatusCodes.BAD_REQUEST,
@@ -89,7 +88,7 @@ export async function getAllMaterials(req, res) {
 
 export async function updateMaterial(req, res) {
   try {
-    const id = getIDFromParams(req);
+    const id = getIDFromParams(req.params);
     if (!validateNumber(id) || !id) {
       return getResponse(res, {
         statusCode: StatusCodes.BAD_REQUEST,
@@ -97,7 +96,7 @@ export async function updateMaterial(req, res) {
       });
     }
 
-    const updateData = BindUpdateMaterialData(req);
+    const updateData = BindMaterialData(req.body);
     if (updateData.errors.length > 0)
       return getResponse(res, {
         statusCode: StatusCodes.BAD_REQUEST,
@@ -112,7 +111,7 @@ export async function updateMaterial(req, res) {
       });
     }
 
-    await UpdateMaterial(updateData, materialExist.id);
+    await UpdateMaterial(id, updateData);
 
     return getResponse(res, {
       statusCode: StatusCodes.ACCEPTED,
@@ -126,7 +125,7 @@ export async function updateMaterial(req, res) {
 
 export async function deleteMaterial(req, res) {
   try {
-    const id = getIDFromParams(req);
+    const id = getIDFromParams(req.params);
     if (!validateNumber(id) || !id) {
       return getResponse(res, {
         statusCode: StatusCodes.BAD_REQUEST,

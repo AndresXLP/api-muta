@@ -1,5 +1,5 @@
-import moment from 'moment';
-import { Materials } from '../models/materials';
+import dayjs from 'dayjs';
+import { Materials } from '../Models/materials';
 
 export async function CreateMaterial({ name, weight, price }) {
   try {
@@ -30,14 +30,14 @@ export async function GetMaterialByID(id) {
 
 export async function GetAllMaterials({ limit, offset }) {
   try {
-    return await Materials.findAndCountAll({ where: { deletedAt: null } }, { limit, offset });
+    return await Materials.findAndCountAll({ where: { deletedAt: null }, limit, offset });
   } catch (e) {
     console.log(e);
     return null;
   }
 }
 
-export async function UpdateMaterial({ name, weight, price }, id) {
+export async function UpdateMaterial(id, { name, weight, price }) {
   try {
     return await Materials.update({ name, weight, price }, { where: { id, deletedAt: null } });
   } catch (e) {
@@ -48,7 +48,7 @@ export async function UpdateMaterial({ name, weight, price }, id) {
 
 export async function DeleteMaterial(id) {
   try {
-    return await Materials.update({ deletedAt: moment() }, { where: { id, deletedAt: null } });
+    return await Materials.update({ deletedAt: dayjs().toDate() }, { where: { id, deletedAt: null } });
   } catch (e) {
     console.log(e);
     return null;

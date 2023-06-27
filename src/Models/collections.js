@@ -1,24 +1,20 @@
 import { DataTypes } from 'sequelize';
-import DB from '../database/postgres';
+import DB from '../Database/postgres';
 
 const sequelize = DB.connection;
 
-export const Materials = sequelize.define('materials', {
+export const Collections = sequelize.define('collections', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
   },
-  name: {
-    type: DataTypes.STRING,
+  amountCollected: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
-  weight: {
-    type: DataTypes.FLOAT,
-    allowNull: false,
-  },
-  price: {
-    type: DataTypes.FLOAT,
+  dateCollection: {
+    type: DataTypes.DATE,
     allowNull: false,
   },
   deletedAt: {
@@ -28,5 +24,5 @@ export const Materials = sequelize.define('materials', {
 });
 
 export default {
-  Materials,
+  Collections,
 };

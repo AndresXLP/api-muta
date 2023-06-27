@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
-import { CreateUser, GetUserByUserName } from '../../services/user';
+import { CreateUser, GetUserByUserName } from '../../Services/user';
 import { BindUserData, ComparePassword, generateJWT, getResponse } from '../../GlobalFunctions/GlobalFunctions';
 
 export async function createUser(req, res) {
