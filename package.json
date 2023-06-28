@@ -8,7 +8,7 @@
     "lint": "eslint ./ --fix",
     "prettier": "prettier -c ./ -w",
     "build": "rimraf dist && babel src -d dist",
-    "docs": "rimraf public/apidoc && apidoc -i Docs -o public/apidoc/",
+    "precommit": "npm run lint && npm run prettier && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

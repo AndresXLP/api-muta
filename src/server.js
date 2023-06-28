@@ -26,6 +26,11 @@ app.use('/api', userRoute);
 app.use('/api', materialRoute);
 app.use('/api', collectionRoute);
 app.use('/api', roadRoute);
+app.use('/api/docs', (req, res) => {
+  const url = 'https://documenter.getpostman.com/view/18554152/2s93z9agqF';
+
+  return res.redirect(url);
+});
 
 app.use(notFound);
 
