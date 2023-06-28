@@ -53,6 +53,7 @@ npm run dev
 - https://documenter.getpostman.com/view/18554152/2s93z9agqF
 
 ## Database Diagram
+
 ![image](https://raw.githubusercontent.com/AndresXLP/api-muta/main/database-diagram.png)
 
 ## About technologies
